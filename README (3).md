@@ -1,0 +1,151 @@
+# seseorang
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ✨</title>
+    <style>
+        :root {
+            --primary-blue: #3a86ff;
+            --bg-blue: #ebf2ff;
+            --text-dark: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #a2c2e8 0%, #ffffff 100%);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 { color: var(--primary-blue); font-size: 1.5rem; }
+
+        input[type="text"] {
+            width: 85%;
+            padding: 12px;
+            border: 1.5px solid #d1d8e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #2a6edb; }
+
+        .hidden { display: none; }
+        
+        .spotify-frame { margin: 15px 0; border-radius: 12px; overflow: hidden; }
+
+        .message-box {
+            background: #f8faff;
+            padding: 18px;
+            margin-top: 15px;
+            line-height: 1.6;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 1px solid #e1e8f0;
+            text-align: left;
+        }
+
+        /* Animasi Hujan Emoji */
+        .emoji {
+            position: fixed;
+            top: -10%;
+            z-index: 1;
+            animation: fall linear forwards;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step-name">
+        <h1>Halo! 👋</h1>
+        <p>Boleh tau nama kamu?</p>
+        <input type="text" id="input-nama" placeholder="Ketik di sini...">
+        <br>
+        <button class="btn" onclick="showContent()">Yuk Masuk ✨</button>
+    </div>
+
+    <div id="step-final" class="hidden">
+        <h1>Semangat Ya, <span id="user-name"></span>! 😊</h1>
+        
+        <div class="spotify-frame">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2S5lB7q98VpD9p2X0v5G7O?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <div class="message-box">
+            "Apapun yang lagi dikerjain hari ini, semoga lancar dan nggak bikin stres ya. Kalau capek jangan lupa istirahat sebentar. Semangat terus buat semua rencana-rencana kamu!"
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #636e72;">Dengerin lagunya ya! 🎧</p>
+    </div>
+</div>
+
+<script>
+    function showContent() {
+        const nama = document.getElementById('input-nama').value;
+        if (nama.trim() !== "") {
+            document.getElementById('step-name').classList.add('hidden');
+            document.getElementById('step-final').classList.remove('hidden');
+            document.getElementById('user-name').innerText = nama;
+            startEmojiRain();
+        } else {
+            alert("Isi nama kamu dulu ya!");
+        }
+    }
+
+    function startEmojiRain() {
+        const emojis = ['✨', '☁️', '☀️', '⭐', '🔥', '🌊', '🦾', '🌈'];
+        setInterval(() => {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.fontSize = Math.random() * 20 + 15 + "px";
+            emoji.style.animationDuration = Math.random() * 2 + 3 + "s";
+            emoji.style.opacity = Math.random();
+            document.body.appendChild(emoji);
+            
+            setTimeout(() => { emoji.remove(); }, 5000);
+        }, 400);
+    }
+</script>
+
+</body>
+</html>
