@@ -1,0 +1,63 @@
+	<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ya!</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #ffeaa7; 
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .vidio { margin-bottom: 20px; }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff7675;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Halo Temanku! ✨</h1>
+        
+        <div class="vidio">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div id="quiz">
+            <p id="pertanyaan">Siapa teman kamu yang paling baik?</p>
+            <button onclick="jawab()">Klik Untuk Jawab</button>
+        </div>
+    </div>
+
+    <script>
+        function jawab() {
+            let nama = prompt("Masukkan nama kamu dulu:");
+            if (nama) {
+                alert("Halo " + nama + "! Kamu keren banget sudah mampir ke sini!");
+                let jawaban = prompt("Pertanyaan: Kenapa kamu mau jadi temenku?");
+                alert("Terima kasih jawabannya! " + jawaban + " itu manis sekali!");
+            }
+        }
+    </script>
+
+</body>
+</html>
+      
+      
+      
+    
