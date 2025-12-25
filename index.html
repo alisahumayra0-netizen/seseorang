@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Definisi Kita</title>
+    <title>Ujian Masuk Hati</title>
     <style>
-        /* Efek Layar Retak yang lebih nyata */
         #crack-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -17,9 +16,9 @@
         }
 
         body {
-            background-color: #050505;
-            color: #d1d1d1;
-            font-family: 'Georgia', serif;
+            background-color: #0a0a0a;
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,47 +27,49 @@
             overflow: hidden;
         }
 
-        .container {
-            text-align: center;
+        .card {
+            background: #161616;
             padding: 30px;
-            background: rgba(20, 20, 20, 0.8);
-            border: 0.5px solid #333;
-            border-radius: 2px; /* Gaya kotak lebih kaku/formal */
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             max-width: 400px;
-            z-index: 10;
+            width: 90%;
+            border: 1px solid #333;
         }
 
-        h1 { font-size: 1.2rem; letter-spacing: 3px; color: #fff; }
-        p { font-style: italic; font-size: 0.9rem; color: #888; }
+        h1 { color: #ff7675; font-size: 1.5rem; margin-bottom: 10px; }
+        p { color: #aaa; font-size: 0.9rem; }
 
-        .btn-option {
+        .btn-ans {
             display: block;
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: transparent;
-            color: #bbb;
-            border: 1px solid #222;
-            cursor: pointer;
-            transition: all 0.5s;
-            font-size: 0.85rem;
-        }
-
-        .btn-option:hover {
-            border-color: #ff4757;
+            padding: 12px;
+            margin: 8px 0;
+            background: #222;
             color: #fff;
-            letter-spacing: 1px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        #music-trigger {
+        .btn-ans:hover {
+            background: #ff7675;
+            border-color: #ff7675;
+            transform: scale(1.02);
+        }
+
+        #music-btn {
             background: #fff;
             color: #000;
-            padding: 5px 15px;
             border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
             cursor: pointer;
             margin-bottom: 20px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
         }
     </style>
 </head>
@@ -76,105 +77,108 @@
 
     <div id="crack-overlay"></div>
 
-    <audio id="piano" loop>
+    <audio id="bgm" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="container" id="box">
-        <div id="start-page">
-            <button id="music-trigger" onclick="init()">Aktifkan Perasaan</button>
-            <h1>HALO, ANONIM.</h1>
-            <p>"Sesuatu yang tidak punya nama biasanya lebih mudah untuk dilupakan, kan?"</p>
-            <button class="btn-option" onclick="start()">Buktikan Kamu Tidak Begitu</button>
+    <div class="card" id="box">
+        <div id="start">
+            <button id="music-btn" onclick="startMusic()">🔊 AKTIFKAN AUDIO</button>
+            <h1>Test Kelayakan 🧪</h1>
+            <p>Seberapa jauh kamu mengenal "kita" yang tidak jelas ini?</p>
+            <button class="btn-ans" onclick="mulai()">Mulai Interogasi</button>
         </div>
 
-        <div id="quiz-page" style="display:none;">
-            <h2 id="question" style="font-size: 1rem;"></h2>
+        <div id="quiz" style="display:none;">
+            <h2 id="q-text" style="font-size: 1.1rem;"></h2>
             <div id="options"></div>
         </div>
     </div>
 
     <script>
-        const piano = document.getElementById('piano');
+        const bgm = document.getElementById('bgm');
         const crack = document.getElementById('crack-overlay');
-        let answers = [];
+        let userAnswers = [];
 
-        function init() {
-            piano.play();
-            document.getElementById('music-trigger').innerText = "🎵 Musik Aktif";
+        function startMusic() {
+            bgm.play();
+            document.getElementById('music-btn').innerText = "🎵 MUSIC ON";
         }
 
-        const listPertanyaan = [
+        const dataQuiz = [
             {
-                q: "Kita ini sedang membangun masa depan atau cuma mengisi waktu luang?",
-                opt: ["Membangun masa depan", "Cuma biar gak sepi", "Gak tau, jalani aja"],
-                sadIndex: 1
+                q: "Kita ini statusnya apa sih kalau ditanya orang?",
+                opt: ["Lagi magang jadi pacar", "Temen rasa cicilan (nggantung)", "Anonimitas abadi", "Cuma titipan Tuhan"],
+                crackIdx: 2
             },
             {
-                q: "Kalau nanti ada yang lebih 'jelas' datang ke aku, kamu bakal...",
-                opt: ["Nahan aku", "Persilahkan aku pergi", "Bilang 'Kan kita cuma temen'"],
-                sadIndex: 2
+                q: "Kalau aku tiba-tiba hilang (ghosting), reaksi kamu?",
+                opt: ["Yaudah, antrian masih panjang", "Lapor polisi (kasus kehilangan barang berharga)", "Sok asik padahal nangis di pojokan", "Syukuran"],
+                crackIdx: 0
             },
             {
-                q: "Lebih sakit mana: kehilangan aku atau kehilangan status yang gak pernah ada?",
-                opt: ["Kehilangan kamu", "Kehilangan status", "Gak ada yang sakit"],
-                sadIndex: 2
+                q: "Deskripsikan hubungan kita dalam 1 kata:",
+                opt: ["Aesthetic", "Absurd", "Ambiguitas", "Amit-amit"],
+                crackIdx: 3
+            },
+            {
+                q: "Kalau ada yang nembak aku, kamu bakal...",
+                opt: ["Jadi seksi dokumentasi", "Cemburu tapi gak berhak", "Pura-pura gak liat", "Langsung blokir nomor dia"],
+                crackIdx: 1
             }
         ];
 
-        let index = 0;
+        let current = 0;
 
-        function start() {
-            document.getElementById('start-page').style.display = 'none';
-            document.getElementById('quiz-page').style.display = 'block';
-            show();
+        function mulai() {
+            document.getElementById('start').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            tampil();
         }
 
-        function show() {
-            const data = listPertanyaan[index];
-            document.getElementById('question').innerText = data.q;
-            const optDiv = document.getElementById('options');
-            optDiv.innerHTML = '';
+        function tampil() {
+            const item = dataQuiz[current];
+            document.getElementById('q-text').innerText = item.q;
+            const optBox = document.getElementById('options');
+            optBox.innerHTML = '';
 
-            data.opt.forEach((teks, i) => {
+            item.opt.forEach((txt, i) => {
                 const b = document.createElement('button');
-                b.className = 'btn-option';
-                b.innerText = teks;
+                b.className = 'btn-ans';
+                b.innerText = txt;
                 b.onclick = () => pilih(i);
-                optDiv.appendChild(b);
+                optBox.appendChild(b);
             });
         }
 
         function pilih(i) {
-            answers.push(listPertanyaan[index].opt[i]);
+            userAnswers.push(dataQuiz[current].opt[i]);
             
-            if (i === listPertanyaan[index].sadIndex) {
+            if (i === dataQuiz[current].crackIdx) {
                 crack.style.display = 'block';
-                setTimeout(() => { crack.style.display = 'none'; }, 800);
+                setTimeout(() => { crack.style.display = 'none'; }, 600);
             }
 
-            index++;
-            if (index < listPertanyaan.length) {
-                show();
+            current++;
+            if (current < dataQuiz.length) {
+                tampil();
             } else {
-                finish();
+                selesai();
             }
         }
 
-        function finish() {
-            const teksWA = `Hasil Jawaban Dia:%0A1. ${answers[0]}%0A2. ${answers[1]}%0A3. ${answers[2]}`;
-            // GANTI NOMOR WA DI BAWAH (Contoh: 628123456789)
-            const noWA = "628xxxxxxxxxx"; 
-            
+        function selesai() {
+            const waText = `Laporan HTS dari Dia:%0A1. ${userAnswers[0]}%0A2. ${userAnswers[1]}%0A3. ${userAnswers[2]}%0A4. ${userAnswers[3]}`;
+            const myWA = "6281374614987"; // <--- GANTI NOMOR WA KAMU DISINI
+
             document.getElementById('box').innerHTML = `
-                <h1>TERIMA KASIH.</h1>
-                <p>Setidaknya aku tahu di mana posisiku sekarang.</p>
-                <button class="btn-option" onclick="window.location.href='https://wa.me/${noWA}?text=${teksWA}'">
-                    Kirim kejujuran ini ke WhatsApp-ku
+                <h1>Analisis Selesai!</h1>
+                <p>Terima kasih sudah jujur meskipun kejujuran itu pahit seperti kopi tanpa gula.</p>
+                <button class="btn-ans" style="background:#25d366;" onclick="window.location.href='https://wa.me/${myWA}?text=${waText}'">
+                    Kirim Hasil ke WhatsApp
                 </button>
             `;
         }
     </script>
 </body>
 </html>
- 
