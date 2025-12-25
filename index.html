@@ -3,23 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebuah Sudut Pandang</title>
+    <title>Mood Booster Untukmu</title>
     <style>
-        /* Efek Layar Retak */
-        #crack-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://raw.githubusercontent.com/Aris-Aris/broken-glass/main/broken.png');
-            background-size: cover;
-            display: none;
-            z-index: 100;
-            pointer-events: none;
-        }
-
         body {
-            background-color: #080808; /* Hitam pekat agar elegan */
-            color: #d1d1d1;
-            font-family: 'Garamond', serif; /* Font klasik & berkharisma */
+            background: #fff5f5; /* Warna pink krem yang hangat */
+            color: #5d4037;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,172 +19,148 @@
 
         .container {
             text-align: center;
-            padding: 40px;
-            background: rgba(15, 15, 15, 0.95);
-            border-radius: 4px;
-            border: 1px solid #222;
-            max-width: 420px;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+            max-width: 400px;
             width: 85%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 2px solid #ffcad4;
+            transition: all 0.5s ease;
         }
 
-        h1 { font-size: 1.1rem; letter-spacing: 4px; color: #fff; text-transform: uppercase; }
-        p { font-style: italic; font-size: 0.9rem; color: #666; margin-bottom: 30px; }
+        h1 { font-size: 1.5rem; color: #ff8fa3; margin-bottom: 10px; }
+        
+        #message-area {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-style: italic;
+            transition: opacity 0.5s;
+        }
 
-        .btn-elegant {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            margin: 12px 0;
-            background: transparent;
-            color: #999;
-            border: 1px solid #333;
+        .btn-sweet {
+            background: #ff8fa3;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.4s;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            position: relative;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
+            transition: transform 0.2s, background 0.3s;
         }
 
-        .btn-elegant:hover {
-            border-color: #fff;
-            color: #fff;
-            background: rgba(255,255,255,0.05);
+        .btn-sweet:hover {
+            background: #ff758f;
+            transform: scale(1.05);
         }
 
-        #music-trigger {
+        .btn-sweet:active {
+            transform: scale(0.95);
+        }
+
+        #music-btn {
             background: none;
-            color: #444;
-            border: 1px solid #222;
-            padding: 6px 12px;
+            border: 1px solid #ffccd5;
+            color: #ff8fa3;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 20px;
             cursor: pointer;
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
+        }
+
+        /* Animasi hati melayang */
+        .heart {
+            position: fixed;
+            color: #ffb3c1;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: fly 3s linear forwards;
+        }
+
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="crack-overlay"></div>
+    <div class="container">
+        <button id="music-btn" onclick="toggleMusic()">🎵 Play Gentle Music</button>
+        
+        <audio id="piano-bgm" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
 
-    <audio id="piano-track" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="container" id="main-box">
-        <div id="start-screen">
-            <button id="music-trigger" onclick="initAudio()">Enable Atmosphere</button>
-            <h1>Perspektif</h1>
-            <p>"Beberapa hal memang sengaja dibiarkan tanpa nama, tapi tidak selamanya bisa dibiarkan tanpa arah."</p>
-            <button class="btn-elegant" onclick="startJourney()">Mulai</button>
+        <h1>Halo, Kamu! ✨</h1>
+        <div id="message-area">
+            "Klik tombol di bawah kalau kamu butuh alasan untuk tersenyum hari ini."
         </div>
-
-        <div id="quiz-screen" style="display:none;">
-            <h2 id="q-text" style="font-size: 0.95rem; line-height: 1.6;"></h2>
-            <div id="options-box" style="min-height: 200px; position: relative;"></div>
-        </div>
+        
+        <button class="btn-sweet" onclick="generateMessage()">Dapatkan Semangat ❤️</button>
     </div>
 
     <script>
-        const audio = document.getElementById('piano-track');
-        const crack = document.getElementById('crack-overlay');
-        let answers = [];
-
-        function initAudio() {
-            audio.play();
-            document.getElementById('music-trigger').innerText = "AUDIO ACTIVE";
-        }
-
-        const questions = [
-            {
-                q: "Bagimu, kedekatan kita ini sebuah investasi perasaan atau sekadar mengisi ruang kosong?",
-                opt: ["Investasi jangka panjang", "Hanya pengisi waktu", "Sesuatu yang berharga"],
-                runIdx: 1, // Tombol lari kalau pilih "pengisi waktu"
-                crackIdx: 1
-            },
-            {
-                q: "Jika esok aku memilih untuk berhenti, apa yang paling kamu sesali?",
-                opt: ["Waktu yang terbuang", "Kehilangan sosokku", "Tidak ada sesal sama sekali"],
-                runIdx: 2, // Tombol lari kalau pilih "tidak sesal"
-                crackIdx: 2
-            },
-            {
-                q: "Apakah kamu lebih menghargai kebebasanmu saat ini, atau kepastian yang belum kamu tawarkan?",
-                opt: ["Menghargai kebebasan", "Kepastian lebih penting", "Sangat menikmati kerumitan ini"],
-                runIdx: 0,
-                crackIdx: 0
-            }
+        const messages = [
+            "Apapun yang terjadi hari ini, ingatlah kalau kamu sudah berjuang dengan hebat. Rehat sejenak, ya? 🌸",
+            "Dunia mungkin terasa berat, tapi kamu jauh lebih kuat dari apa yang kamu bayangkan.",
+            "Jangan lupa tersenyum. Bukan karena hidup ini sempurna, tapi karena kamu berhak bahagia. 😊",
+            "Setiap langkah kecilmu itu berarti. Tidak perlu terburu-buru, nikmati saja prosesnya.",
+            "Kamu itu berharga. Jangan biarkan pikiran burukmu membuatmu lupa akan hal itu. ✨",
+            "Mungkin hari ini melelahkan, tapi besok adalah halaman baru yang penuh harapan.",
+            "Bangga banget sama kamu yang tetap bertahan sampai detik ini. You're doing great! ❤️",
+            "Tidur yang nyenyak malam ini. Besok kita coba lagi dengan semangat yang baru, ya?"
         ];
 
-        let step = 0;
+        const piano = document.getElementById('piano-bgm');
+        const area = document.getElementById('message-area');
 
-        function startJourney() {
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('quiz-screen').style.display = 'block';
-            render();
-        }
-
-        function render() {
-            const data = questions[step];
-            document.getElementById('q-text').innerText = data.q;
-            const box = document.getElementById('options-box');
-            box.innerHTML = '';
-
-            data.opt.forEach((txt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-elegant';
-                btn.innerText = txt;
-                
-                if (i === data.runIdx) {
-                    btn.onmouseover = () => escape(btn);
-                } else {
-                    btn.onclick = () => select(i);
-                }
-                box.appendChild(btn);
-            });
-        }
-
-        function escape(btn) {
-            const x = Math.random() * (window.innerWidth - 200);
-            const y = Math.random() * (window.innerHeight - 100);
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            btn.style.width = '180px';
-            btn.style.zIndex = '1000';
-            btn.style.borderColor = '#ff4757';
-        }
-
-        function select(i) {
-            answers.push(questions[step].opt[i]);
-            
-            if (i === questions[step].crackIdx) {
-                crack.style.display = 'block';
-                setTimeout(() => { crack.style.display = 'none'; }, 700);
-            }
-
-            step++;
-            if (step < questions.length) {
-                render();
+        function toggleMusic() {
+            if (piano.paused) {
+                piano.play();
+                document.getElementById('music-btn').innerText = "🎵 Music On";
             } else {
-                finalize();
+                piano.pause();
+                document.getElementById('music-btn').innerText = "🎵 Music Off";
             }
         }
 
-        function finalize() {
-            const phone = "6281374614987"; // GANTI NOMOR WA DISINI
-            const text = `Point of View:%0A1. ${answers[0]}%0A2. ${answers[1]}%0A3. ${answers[2]}`;
+        function generateMessage() {
+            // Efek transisi teks
+            area.style.opacity = 0;
             
-            document.getElementById('main-box').innerHTML = `
-                <h1>Kesimpulan</h1>
-                <p>Terima kasih atas kejujuranmu. Setidaknya kini kita berada di halaman yang sama.</p>
-                <button class="btn-elegant" style="border-color: #fff;" onclick="window.location.href='https://wa.me/${phone}?text=${text}'">
-                    Kirim Pesan Akhir
-                </button>
-            `;
+            setTimeout(() => {
+                const random = Math.floor(Math.random() * messages.length);
+                area.innerText = `"${messages[random]}"`;
+                area.style.opacity = 1;
+                createHeart();
+            }, 300);
+        }
+
+        function createHeart() {
+            for(let i=0; i<5; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }
         }
     </script>
 </body>
 </html>
-                             
+
+                        
+                
