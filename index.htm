@@ -3,61 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ya!</title>
+    <title>Situs Penuh Kejutan!</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            background-color: #ffeaa7; 
-            padding: 50px;
-        }
-        .container {
-            background: white;
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Font lucu */
+            background-color: #ffda79; /* Warna latar belakang cerah */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            color: #333;
         }
-        .vidio { margin-bottom: 20px; }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #ff7675;
+
+        .container {
+            background: linear-gradient(135deg, #a29bfe, #ffeaa7); /* Gradien lucu */
+            padding: 30px 40px;
+            border-radius: 25px; /* Sudut lebih membulat */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); /* Bayangan lebih jelas */
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            overflow: hidden; /* Agar efek tidak keluar */
+        }
+
+        h1 {
+            color: #d63031; /* Warna merah ceria */
+            margin-bottom: 25px;
+            font-size: 2.5em; /* Ukuran judul lebih besar */
+            text-shadow: 2px 2px #fab1a0; /* Efek shadow */
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .cute-button {
+            display: inline-flex; /* Agar icon dan teks bisa sejajar */
+            align-items: center;
+            padding: 15px 30px;
+            font-size: 1.3em; /* Ukuran teks tombol */
+            font-weight: bold;
             color: white;
+            background: linear-gradient(45deg, #fd79a8, #ff7675); /* Gradien pink-merah */
             border: none;
-            border-radius: 10px;
+            border-radius: 50px; /* Bentuk kapsul */
+            cursor: pointer;
+            transition: all 0.3s ease; /* Transisi halus */
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4); /* Bayangan tombol */
+            animation: bounce 2s infinite ease-in-out; /* Animasi memantul */
+        }
+
+        .cute-button:hover {
+            transform: scale(1.05) translateY(-3px); /* Sedikit membesar saat hover */
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.6);
+            background: linear-gradient(45deg, #ff7675, #fd79a8); /* Balik gradien */
+        }
+
+        .cute-button:active {
+            transform: scale(0.98); /* Sedikit mengecil saat diklik */
+            box-shadow: 0 3px 10px rgba(253, 121, 168, 0.3);
+        }
+
+        .cute-button span {
+            margin-left: 10px; /* Jarak antara ikon dan teks */
+        }
+
+        /* Animasi memantul */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .quiz-question {
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+
+        .response-message {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #2ecc71;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Halo Temanku! ✨</h1>
+        <h1>Hai-Hai, Temanku Sayang! 👋</h1>
+        <p>Ada kejutan kecil buat kamu nih. Coba klik tombol di bawah!</p>
         
-        <div class="vidio">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        <button class="cute-button" onclick="startQuiz()">
+            💖<span>Klik Aku Dong!</span>
+        </button>
+
+        <div id="quiz-area" style="display: none;">
+            <p class="quiz-question" id="current-question"></p>
+            <div id="options-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                </div>
+            <button class="cute-button" style="margin-top: 20px; background: #6c5ce7;" onclick="nextQuestion()">Next</button>
         </div>
 
-        <div id="quiz">
-            <p id="pertanyaan">Siapa teman kamu yang paling baik?</p>
-            <button onclick="jawab()">Klik Untuk Jawab</button>
+        <div id="final-message" style="display: none;">
+            <h2 style="color: #27ae60;">Terima Kasih Banyak!</h2>
+            <p id="personal-message" class="response-message"></p>
+            <button class="cute-button" style="background: #e67e22;" onclick="location.reload()">Mulai Lagi</button>
         </div>
     </div>
 
     <script>
-        function jawab() {
-            let nama = prompt("Masukkan nama kamu dulu:");
-            if (nama) {
-                alert("Halo " + nama + "! Kamu keren banget sudah mampir ke sini!");
-                let jawaban = prompt("Pertanyaan: Kenapa kamu mau jadi temenku?");
-                alert("Terima kasih jawabannya! " + jawaban + " itu manis sekali!");
-            }
-        }
-    </script>
-
-</body>
-</html>
-      
-      
-      
-    
+        const questions = [
+            {
+                q: "Apa makanan kesukaan aku saat galau?",
+                options: ["Es Krim Cokelat", "Indomie Goreng", "Pizza Keju", "N
