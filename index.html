@@ -1,150 +1,220 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ✨</title>
+    <title>Situs Penuh Kejutan!</title>
     <style>
-        :root {
-            --primary-blue: #3a86ff;
-            --bg-blue: #ebf2ff;
-            --text-dark: #2d3436;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, #a2c2e8 0%, #ffffff 100%);
-            color: var(--text-dark);
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Font lucu */
+            background-color: #ffda79; /* Warna latar belakang cerah */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
             padding: 20px;
+            box-sizing: border-box;
+            color: #333;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #a29bfe, #ffeaa7); /* Gradien lucu */
+            padding: 30px 40px;
+            border-radius: 25px; /* Sudut lebih membulat */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); /* Bayangan lebih jelas */
+            text-align: center;
+            max-width: 600px;
             width: 100%;
-            max-width: 380px;
-            text-align: center;
-            z-index: 10;
+            position: relative;
+            overflow: hidden; /* Agar efek tidak keluar */
         }
 
-        h1 { color: var(--primary-blue); font-size: 1.5rem; }
-
-        input[type="text"] {
-            width: 85%;
-            padding: 12px;
-            border: 1.5px solid #d1d8e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            outline: none;
-            font-size: 1rem;
-            text-align: center;
+        h1 {
+            color: #d63031; /* Warna merah ceria */
+            margin-bottom: 25px;
+            font-size: 2.5em; /* Ukuran judul lebih besar */
+            text-shadow: 2px 2px #fab1a0; /* Efek shadow */
         }
 
-        .btn {
-            background: var(--primary-blue);
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .cute-button {
+            display: inline-flex; /* Agar icon dan teks bisa sejajar */
+            align-items: center;
+            padding: 15px 30px;
+            font-size: 1.3em; /* Ukuran teks tombol */
+            font-weight: bold;
             color: white;
+            background: linear-gradient(45deg, #fd79a8, #ff7675); /* Gradien pink-merah */
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            border-radius: 50px; /* Bentuk kapsul */
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
+            transition: all 0.3s ease; /* Transisi halus */
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4); /* Bayangan tombol */
+            animation: bounce 2s infinite ease-in-out; /* Animasi memantul */
         }
 
-        .btn:hover { background: #2a6edb; }
-
-        .hidden { display: none; }
-        
-        .spotify-frame { margin: 15px 0; border-radius: 12px; overflow: hidden; }
-
-        .message-box {
-            background: #f8faff;
-            padding: 18px;
-            margin-top: 15px;
-            line-height: 1.6;
-            font-size: 1rem;
-            border-radius: 10px;
-            border: 1px solid #e1e8f0;
-            text-align: left;
+        .cute-button:hover {
+            transform: scale(1.05) translateY(-3px); /* Sedikit membesar saat hover */
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.6);
+            background: linear-gradient(45deg, #ff7675, #fd79a8); /* Balik gradien */
         }
 
-        /* Animasi Hujan Emoji */
-        .emoji {
-            position: fixed;
-            top: -10%;
-            z-index: 1;
-            animation: fall linear forwards;
-            user-select: none;
+        .cute-button:active {
+            transform: scale(0.98); /* Sedikit mengecil saat diklik */
+            box-shadow: 0 3px 10px rgba(253, 121, 168, 0.3);
         }
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+        .cute-button span {
+            margin-left: 10px; /* Jarak antara ikon dan teks */
+        }
+
+        /* Animasi memantul */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .quiz-question {
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+
+        .response-message {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #2ecc71;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="step-name">
-        <h1>Halo! 👋</h1>
-        <p>Boleh tau nama kamu?</p>
-        <input type="text" id="input-nama" placeholder="Ketik di sini...">
-        <br>
-        <button class="btn" onclick="showContent()">Yuk Masuk ✨</button>
-    </div>
+    <div class="container">
+        <h1>Hai-Hai, Temanku Sayang! 👋</h1>
+        <p>Ada kejutan kecil buat kamu nih. Coba klik tombol di bawah!</p>
+        
+        <button class="cute-button" onclick="startQuiz()">
+            💖<span>Klik Aku Dong!</span>
+        </button>
 
-    <div id="step-final" class="hidden">
-        <h1>Semangat Ya, <span id="user-name"></span>! 😊</h1>
-        
-        
-             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2S5lB7q98VpD9p2X0v5G7O?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div id="quiz-area" style="display: none;">
+            <p class="quiz-question" id="current-question"></p>
+            <div id="options-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                </div>
+            <button class="cute-button" style="margin-top: 20px; background: #6c5ce7;" onclick="nextQuestion()">Next</button>
         </div>
 
-        <div class="message-box">
-            "Apapun yang lagi dikerjain hari ini, semoga lancar dan nggak bikin stres ya. Kalau capek jangan lupa istirahat sebentar. Semangat terus buat semua rencana-rencana kamu!"
+        <div id="final-message" style="display: none;">
+            <h2 style="color: #27ae60;">Terima Kasih Banyak!</h2>
+            <p id="personal-message" class="response-message"></p>
+            <button class="cute-button" style="background: #e67e22;" onclick="location.reload()">Mulai Lagi</button>
         </div>
-
-        <p style="margin-top: 20px; font-size: 0.9rem; color: #636e72;">Dengerin lagunya ya! 🎧</p>
     </div>
-</div>
 
-<script>
-    function showContent() {
-        const nama = document.getElementById('input-nama').value;
-        if (nama.trim() !== "") {
-            document.getElementById('step-name').classList.add('hidden');
-            document.getElementById('step-final').classList.remove('hidden');
-            document.getElementById('user-name').innerText = nama;
-            startEmojiRain();
-        } else {
-            alert("Isi nama kamu dulu ya!");
-        }
-    }
+    <script>
+        const questions = [
+            {
+                q: "Apa makanan kesukaan aku saat galau?",
+                options: ["Es Krim Cokelat", "Indomie Goreng", "Pizza Keju", "Nasi Padang"],
+                correct: 0
+            },
+            {
+                q: "Warna kesukaan aku adalah...",
+                options: ["Biru Langit", "Kuning Cerah", "Pink Pastel", "Hitam Elegan"],
+                correct: 2
+            },
+            {
+                q: "Kalau aku lagi bosan, aku suka melakukan apa?",
+                options: ["Scroll TikTok", "Baca Buku", "Nonton Drakor", "Tidur Seharian"],
+                correct: 2
+            },
+            {
+                q: "Apa cita-cita aku yang paling rahasia?",
+                options: ["Jadi Miliarder", "Jadi Chef Terkenal", "Keliling Dunia", "Punya Kucing Banyak"],
+                correct: 2
+            }
+        ];
 
-    function startEmojiRain() {
-        const emojis = ['✨', '☁️', '☀️', '⭐', '🔥', '🌊', '🦾', '🌈'];
-        setInterval(() => {
-            const emoji = document.createElement('div');
-            emoji.classList.add('emoji');
-            emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + "vw";
-            emoji.style.fontSize = Math.random() * 20 + 15 + "px";
-            emoji.style.animationDuration = Math.random() * 2 + 3 + "s";
-            emoji.style.opacity = Math.random();
-            document.body.appendChild(emoji);
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let friendName = '';
+
+        const quizArea = document.getElementById('quiz-area');
+        const finalMessageArea = document.getElementById('final-message');
+        const startButton = document.querySelector('.cute-button');
+        const currentQuestionText = document.getElementById('current-question');
+        const optionsContainer = document.getElementById('options-container');
+        const personalMessage = document.getElementById('personal-message');
+
+        function startQuiz() {
+            friendName = prompt("Hai! Siapa namamu yang imut itu?").trim();
+            if (friendName === null || friendName === '') {
+                alert("Yah, kok ga diisi? Coba lagi ya!");
+                return;
+            }
             
-            setTimeout(() => { emoji.remove(); }, 5000);
-        }, 400);
-    }
-</script>
+            startButton.style.display = 'none';
+            quizArea.style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQ = questions[currentQuestionIndex];
+            currentQuestionText.innerText = `Pertanyaan dari aku: ${currentQ.q}`;
+            optionsContainer.innerHTML = ''; // Kosongkan pilihan sebelumnya
+
+            currentQ.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'cute-button'; // Gunakan gaya tombol lucu
+                button.style.background = '#00b894'; // Warna tombol opsi
+                button.style.margin = '5px 0';
+                button.innerText = option;
+                button.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (selectedIndex === questions[currentQuestionIndex].correct) {
+                score++;
+            }
+            // Langsung lanjut ke pertanyaan berikutnya tanpa perlu tombol "Next"
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showFinalMessage();
+            }
+        }
+
+        function showFinalMessage() {
+            quizArea.style.display = 'none';
+            finalMessageArea.style.display = 'block';
+            
+            let message = '';
+            if (score === questions.length) {
+                message = `Wow ${friendName}, kamu tahu semua tentang aku! Kita memang soulmate! ❤️`;
+            } else if (score >= questions.length / 2) {
+                message = `Hebat ${friendName}, kamu tahu banyak hal tentang aku! Makasih ya udah kenal aku. 😊`;
+            } else {
+                message = `Terima kasih ${friendName} sudah mencoba! Gak apa-apa kalau belum banyak tahu, kita masih bisa seru-seruan bareng lagi kok! 😄`;
+            }
+            personalMessage.innerText = message + ` (Skor kamu: ${score} dari ${questions.length})`;
+        }
+    </script>
 
 </body>
 </html>
