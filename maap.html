@@ -25,5 +25,62 @@
             max-width: 320px;
         }
         h2 { color: #d81b60; margin-bottom: 10px; font-size: 22px; }
-        p { color
-           
+        p { color: #555; font-size: 15px; margin-bottom: 25px; line-height: 1.5; }
+        .btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            min-height: 50px;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        #yes { background: #f06292; color: white; width: 130px; }
+        #no { background: #eee; color: #777; width: 100px; }
+        .success-msg { color: #f06292; font-weight: bold; margin-top: 15px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<div class="box" id="mainBox">
+    <div style="font-size: 50px; margin-bottom: 10px;">🫠</div>
+    <h2>Halo, Pahri!</h2>
+    <p>Maafin aku ya? Tadi aku agak nyebelin. <br>Sistem kita lagi <i>error</i> kalau lo marah. Klik tombol di bawah biar normal lagi.</p>
+    
+    <div class="btns">
+        <button id="yes" onclick="oke()">Iya, Maafin</button>
+        <button id="no" onmouseover="lari()" onclick="lari()">Nggak!</button>
+    </div>
+</div>
+
+<script>
+    function lari() {
+        // Tombol lari-larian biar Pahri gak bisa klik "Nggak"
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 50);
+        const btnNo = document.getElementById('no');
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+        btnNo.style.zIndex = '999';
+    }
+
+    function oke() {
+        // Tampilan setelah Pahri memaafkan
+        document.getElementById('mainBox').innerHTML = `
+            <div style="font-size: 50px; margin-bottom: 10px;">✨</div>
+            <h2>Nah, Gitu Dong!</h2>
+            <p>Maaf diterima ya, Pahri! <br>Mode <b>Temen Tapi Manis</b> aktif kembali. 🍬</p>
+            <div class="success-msg">Sekarang chat gue lagi ya! ✌️</div>
+        `;
+    }
+</script>
+
+</body>
+</html>
