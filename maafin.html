@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something for You</title>
+    <title>Pahri, Sini Bentar!</title>
     <style>
         body {
             background-color: #fce4ec;
@@ -12,62 +12,76 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
         }
-        .container {
+        .box {
             background: white;
             padding: 30px;
             border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(240, 98, 146, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
-            width: 320px;
+            width: 85%;
+            max-width: 320px;
         }
-        h2 { color: #d81b60; font-size: 20px; }
-        p { color: #444; font-size: 15px; }
-        .btn-group { margin-top: 20px; position: relative; height: 50px; }
+        h2 { color: #d81b60; margin-bottom: 10px; font-size: 22px; }
+        p { color: #555; font-size: 15px; margin-bottom: 25px; line-height: 1.5; }
+        .btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            min-height: 50px;
+        }
         button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 15px;
-            cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
         }
-        #yesBtn { background-color: #f06292; color: white; }
-        #noBtn { background-color: #f5f5f5; color: #888; position: absolute; left: 170px; }
+        #yes { background: #f06292; color: white; width: 130px; }
+        #no { background: #eee; color: #777; width: 100px; }
+        .success-msg { color: #f06292; font-weight: bold; margin-top: 15px; font-size: 16px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div style="font-size: 50px;">🫠</div>
-    <h2>Status: Hubungan Butuh Update</h2>
-    <p>Maafin aku ya, <b>[Nama Dia]</b>? <br>Tadi aku emang agak nyebelin. <br>Jangan lama-lama marahnya, nanti kangennya makin numpuk.</p>
+<div class="box" id="mainBox">
+    <div style="font-size: 50px; margin-bottom: 10px;">🫠</div>
+    <h2>Halo, Pahri!</h2>
+    <p>Maafin aku ya? Tadi aku agak nyebelin. <br>Sistem kita lagi <i>error</i> kalau lo marah. Klik tombol di bawah biar normal lagi.</p>
     
-    <div class="btn-group">
-        <button id="yesBtn" onclick="accepted()">Iya, Maafin</button>
-        <button id="noBtn" onmouseover="moveBtn()">Nggak Mau</button>
+    <div class="btns">
+        <button id="yes" onclick="oke()">Iya, Maafin</button>
+        <button id="no" onmouseover="lari()" onclick="lari()">Nggak!</button>
     </div>
 </div>
 
 <script>
-    function moveBtn() {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 100);
-        const noBtn = document.getElementById('noBtn');
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = x + 'px';
-        noBtn.style.top = y + 'px';
+    function lari() {
+        // Tombol lari-larian biar Pahri gak bisa klik "Nggak"
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 50);
+        const btnNo = document.getElementById('no');
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+        btnNo.style.zIndex = '999';
     }
 
-    function accepted() {
-        document.querySelector('.container').innerHTML = `
-            <div style="font-size: 50px;">✨</div>
+    function oke() {
+        // Tampilan setelah Pahri memaafkan
+        document.getElementById('mainBox').innerHTML = `
+            <div style="font-size: 50px; margin-bottom: 10px;">✨</div>
             <h2>Nah, Gitu Dong!</h2>
-            <p>Maaf diterima. <br>Mode TTM (Temen Tapi Manis) aktif lagi. <br>Kabari ya kalau udah nggak kesel! 🍬</p>
-            <button onclick="window.close()" style="margin-top:10px; background:#f06292; color:white; border:none; padding:8px 15px; border-radius:10px;">Okey!</button>
+            <p>Maaf diterima ya, Pahri! <br>Mode <b>Temen Tapi Manis</b> aktif kembali. 🍬</p>
+            <div class="success-msg">Sekarang chat gue lagi ya! ✌️</div>
         `;
     }
 </script>
+
 </body>
 </html>
+           
