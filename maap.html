@@ -12,90 +12,18 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             overflow: hidden;
         }
         .box {
             background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
-            width: 80%;
-            max-width: 300px;
+            width: 85%;
+            max-width: 320px;
         }
         h2 { color: #d81b60; margin-bottom: 10px; font-size: 22px; }
-        p { color: #555; font-size: 15px; margin-bottom: 25px; }
-        .btns {
-            display: flex;
-            justify-content: space-around;
-            gap: 10px;
-            height: 45px;
-        }
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        #yes { background: #f06292; color: white; width: 120px; }
-        #no { background: #eee; color: #777; width: 100px; transition: 0.1s; }
-    </style>
-</head>
-<body>
-
-<div class="box" id="mainBox">
-    <div style="font-size: 50px;">🫠</div>
-    <h2>Halo, Pahri!</h2>
-    <p>Maafin aku ya? <br>Sistem kita lagi <i>error</i> kalau lo marah. Klik tombol di bawah biar normal lagi.</p>
-    
-    <div class="btns">
-        <button id="yes" onclick="oke()">Iya, Maafin</button>
-        <button id="no" onmouseover="lari()" onclick="lari()">Nggak!</button>
-    </div>
-</div>
-
-<script>
-    function lari() {
-        // Biar tombol "Nggak" lari dari kursor atau sentuhan jari
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        const btnNo = document.getElementById('no');
-        btnNo.style.position = 'fixed';
-        btnNo.style.left = x + 'px';
-        btnNo.style.top = y + 'px';
-    }
-
-    function oke() {
-        document.getElementById('mainBox').innerHTML = `
-            <div style="font-size: 50px;">✨</div>
-            <h2>Nah, Gitu Dong!</h2>
-            <p>Maaf diterima ya, Pahri! <br>Mode <b>Temen Tapi Manis</b> aktif kembali. 🍬</p>
-            <button onclick="location.reload()" style="background:#f06292; color:white; border:none; padding:10px; border-radius:10px; width:100%;">Yeay! ✌️</button>
-        `;
-    }
-<script>
-    function lari() {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        const btnNo = document.getElementById('no');
-        btnNo.style.position = 'fixed';
-        btnNo.style.left = x + 'px';
-        btnNo.style.top = y + 'px';
-    }
-
-    function oke() {
-        document.getElementById('mainBox').innerHTML = `
-            <div style="font-size: 50px;">✨</div>
-            <h2>Nah, Gitu Dong!</h2>
-            <p>Maaf diterima ya, Pahri! <br>Mode <b>Temen Tapi Manis</b> aktif kembali. 🍬</p>
-            <div style="color: #f06292; font-weight: bold; margin-top: 15px;">Chat gue lagi ya! ✌️</div>
-        `;
-    }
-</script>
-    
-
-</body>
-</html>
+        p { color
+           
